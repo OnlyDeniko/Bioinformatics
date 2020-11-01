@@ -1,3 +1,4 @@
+// Copyright 2020 Kulandin Denis
 #include<bits/stdc++.h>
 #include<ext/pb_ds/assoc_container.hpp>
 #pragma optimize("jillzay, jillzay, paci, paci, gilzi, gilzi")
@@ -91,40 +92,40 @@ string ans;
 vector<char> lol = {'C', 'G', 'T', 'A'};
 
 int cnt_diff(string &a, string b){
-	int ans = 0;
-	forn(i, a.size()) ans += a[i] != b[i];
-	return ans;
+    int ans = 0;
+    forn(i, a.size()) ans += a[i] != b[i];
+    return ans;
 }
 
 void calc(int pos, string & ss){
-	if (pos == k){
-		int cnt = 0;
-		for(string &i : input){
-			int mi = INT_MAX;
-			forn(j, i.size() - k + 1){
-				uin(mi, cnt_diff(ss, i.substr(j, k)));				
-			}
-			cnt += mi;
-		}
-		if (uin(dist, cnt)) ans = ss;
-		return;
-	}
-	forr(i, lol){
-		ss += i;
-		calc(pos + 1, ss);
-		ss.pop_back();
-	}
+    if (pos == k){
+        int cnt = 0;
+        for(string &i : input){
+            int mi = INT_MAX;
+            forn(j, i.size() - k + 1){
+                uin(mi, cnt_diff(ss, i.substr(j, k)));              
+            }
+            cnt += mi;
+        }
+        if (uin(dist, cnt)) ans = ss;
+        return;
+    }
+    forr(i, lol){
+        ss += i;
+        calc(pos + 1, ss);
+        ss.pop_back();
+    }
 }
 
 void solve(){
-	cin >> k;
-	string s;
-	while(cin >> s){
-		input.pb(s);
-	}
-	s.clear();
-	calc(0, s);
-	cout << ans << '\n';
+    cin >> k;
+    string s;
+    while(cin >> s){
+        input.pb(s);
+    }
+    s.clear();
+    calc(0, s);
+    cout << ans << '\n';
 }
 
 signed main() {

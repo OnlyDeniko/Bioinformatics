@@ -1,3 +1,4 @@
+// Copyright 2020 Kulandin Denis
 #include<bits/stdc++.h>
 #include<ext/pb_ds/assoc_container.hpp>
 #pragma optimize("jillzay, jillzay, paci, paci, gilzi, gilzi")
@@ -89,29 +90,29 @@ int k;
 
 
 void solve(){
-	cin >> text >> k;
-	a.resize(4, vector<ldd>(k));
-	forn(i, 4) forn(j, k) cin >> a[i][j];
-	ldd kek = -1;
-	string ans;
-	forn(i, text.size() - k + 1){
-		string s = text.substr(i, k);
-		ldd gg = 1;
-		int ind = 0;
-		forr(j, s){
-			if (j == 'A') gg *= a[0][ind];
-			else if (j == 'C') gg *= a[1][ind];
-			else if (j == 'G') gg *= a[2][ind];
-			else gg *= a[3][ind];
-			ind++;
-		}
-		deb(gg, s);
-		if (kek < gg + EPS) {
+    cin >> text >> k;
+    a.resize(4, vector<ldd>(k));
+    forn(i, 4) forn(j, k) cin >> a[i][j];
+    ldd kek = -1;
+    string ans;
+    forn(i, text.size() - k + 1){
+        string s = text.substr(i, k);
+        ldd gg = 1;
+        int ind = 0;
+        forr(j, s){
+            if (j == 'A') gg *= a[0][ind];
+            else if (j == 'C') gg *= a[1][ind];
+            else if (j == 'G') gg *= a[2][ind];
+            else gg *= a[3][ind];
+            ind++;
+        }
+        deb(gg, s);
+        if (kek < gg + EPS) {
             ans = s;
             kek = gg;
         }
-	}
-	cout << ans << '\n';
+    }
+    cout << ans << '\n';
 }
 
 signed main() {

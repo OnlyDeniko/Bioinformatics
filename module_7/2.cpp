@@ -1,3 +1,4 @@
+// Copyright 2020 Kulandin Denis
 #include<bits/stdc++.h>
 #include<ext/pb_ds/assoc_container.hpp>
 #pragma optimize("jillzay, jillzay, paci, paci, gilzi, gilzi")

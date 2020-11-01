@@ -1,3 +1,4 @@
+// Copyright 2020 Kulandin Denis
 #include<bits/stdc++.h>
 #include<ext/pb_ds/assoc_container.hpp>
 #pragma optimize("jillzay, jillzay, paci, paci, gilzi, gilzi")
@@ -85,98 +86,98 @@ inline void * operator new ( size_t n ) {
 inline void operator delete ( void * ) noexcept { }*/
 int K, T;
 vector<vector<ldd>> makeTable(const vs & s){
-	map<int, map<char, int>> mp;
-	forr(i, s){
-		forn(j, i.size()){
-			mp[j][i[j]]++;
-		}
-	}
-	vector<vector<ldd>> ans(4, vector<ldd>(K));
-	forn(i, K){
-		ldd gg = 1. / T;
-		forr(j, mp[i]){
-			if (j.X == 'A') ans[0][i] = gg * j.Y;
-			else if (j.X == 'C') ans[1][i] = gg * j.Y;
-			else if (j.X == 'G') ans[2][i] = gg * j.Y;
-			else ans[3][i] = gg * j.Y;
-		}
-	} 
-	deb(ans);
-	return ans;
+    map<int, map<char, int>> mp;
+    forr(i, s){
+        forn(j, i.size()){
+            mp[j][i[j]]++;
+        }
+    }
+    vector<vector<ldd>> ans(4, vector<ldd>(K));
+    forn(i, K){
+        ldd gg = 1. / T;
+        forr(j, mp[i]){
+            if (j.X == 'A') ans[0][i] = gg * j.Y;
+            else if (j.X == 'C') ans[1][i] = gg * j.Y;
+            else if (j.X == 'G') ans[2][i] = gg * j.Y;
+            else ans[3][i] = gg * j.Y;
+        }
+    } 
+    deb(ans);
+    return ans;
 }
 
 int calc(vs & a){
-	int ans = 0;
-	forn(i, a[0].size()){
-		int ma = -1;
-		char ind;
-		map<char, int> mp;
-		forn(j, a.size()){
-			mp[a[j][i]]++;
-			if (uax(ma, mp[a[j][i]])) ind = a[j][i];			
-		}
-		ans += T - ma;
-	}
-	return ans;
+    int ans = 0;
+    forn(i, a[0].size()){
+        int ma = -1;
+        char ind;
+        map<char, int> mp;
+        forn(j, a.size()){
+            mp[a[j][i]]++;
+            if (uax(ma, mp[a[j][i]])) ind = a[j][i];            
+        }
+        ans += T - ma;
+    }
+    return ans;
 }
 
 ldd score(string & s, vector<vector<ldd>> & a){
-	ldd ans = 1;
-	forn(i, s.size()){
-		if (s[i] == 'A') ans *= a[0][i];
-		else if (s[i] == 'C') ans *= a[1][i];
-		else if (s[i] == 'G') ans *= a[2][i];
-		else ans *= a[3][i];
-	}
-	return ans;
+    ldd ans = 1;
+    forn(i, s.size()){
+        if (s[i] == 'A') ans *= a[0][i];
+        else if (s[i] == 'C') ans *= a[1][i];
+        else if (s[i] == 'G') ans *= a[2][i];
+        else ans *= a[3][i];
+    }
+    return ans;
 }
 
 void solve(){
-	
-	cin >> K >> T;
-	vs a(T);
-	cin >> a;
-	vs ANS;	
-	forn(i, T){
-		ANS.pb(a[i].substr(0, K));
-	}
-	int ans = calc(ANS);
-	forn(i, a[0].size() - K + 1){
-		map<int, set<char>> mp;
-		vs tmp;	
-		string s = a[0].substr(i, K);
-		tmp.pb(s);		
-		For(j, 1, T){
-			auto table = makeTable(tmp);
-			string ind = a[j].substr(0, K);
-			auto ma = score(ind, table);
-	
-			For(k, 1, a[j].size() - K + 1){
-				string qwe = a[j].substr(k, K);
-				auto sc = score(qwe, table);
-				if (ma < sc - EPS){
-					ma = sc;
-					ind = qwe;
-				}
-				
-			}
-			tmp.pb(ind);
-		}
-		deb(tmp);
-		deb(calc(tmp));
-		
-		int pog = calc(tmp);
-		if (ans > pog){
-			ans = pog;
-			ANS = tmp;
-		}
+    
+    cin >> K >> T;
+    vs a(T);
+    cin >> a;
+    vs ANS; 
+    forn(i, T){
+        ANS.pb(a[i].substr(0, K));
+    }
+    int ans = calc(ANS);
+    forn(i, a[0].size() - K + 1){
+        map<int, set<char>> mp;
+        vs tmp; 
+        string s = a[0].substr(i, K);
+        tmp.pb(s);      
+        For(j, 1, T){
+            auto table = makeTable(tmp);
+            string ind = a[j].substr(0, K);
+            auto ma = score(ind, table);
+    
+            For(k, 1, a[j].size() - K + 1){
+                string qwe = a[j].substr(k, K);
+                auto sc = score(qwe, table);
+                if (ma < sc - EPS){
+                    ma = sc;
+                    ind = qwe;
+                }
+                
+            }
+            tmp.pb(ind);
+        }
+        deb(tmp);
+        deb(calc(tmp));
+        
+        int pog = calc(tmp);
+        if (ans > pog){
+            ans = pog;
+            ANS = tmp;
+        }
 
 
-	}
-	deb(ans);
-	forr(i, ANS){
-		cout << i << '\n';
-	}
+    }
+    deb(ans);
+    forr(i, ANS){
+        cout << i << '\n';
+    }
 }
 
 signed main() {

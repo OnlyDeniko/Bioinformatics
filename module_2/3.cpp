@@ -1,3 +1,4 @@
+// Copyright 2020 Kulandin Denis
 #include <iostream>
 
 int main() {
